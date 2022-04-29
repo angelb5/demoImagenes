@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/base.html :: head(title='Gameshop3 - Bienvenido')"></head>
+<body>
+<div class='container container-app'>
+    <div th:replace="fragments/header.html :: header(option='Juegos')"></div>
+
+    <div id="content">
+        <main>
+            <!-- Contenido -->
+            <div class="page-header text-center">
+                <h1>Lista de Imagenes</h1>
+            </div>
+            <div class="container-fluid">
+
+                <a class="btn btn-primary mt-4 mb-4" th:href="@{/nuevo}"><span class="bi bi-plus-circle"></span> Nueva Imagen</a>
+                <div th:if="${msg != null}" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span th:text="${msg}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th></th>
+                        <th style="width: 18%">Nombre</th>
+                        <th style="width: 8%"></th>
+                        <th style="width: 8%"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="image, info : ${imageList}">
+                        <td th:text="${info.index+1}"></td>
+                        <td >
+                            <div class="overflow-hidden" style="width: 100px;">
+                                <img th:src="@{'/image/display/'+ ${image.id}}" th:alt="${image.name}" style="min-width: 100px; width: 100%; height: 100%; object-fit: cover">
+                            </div>
+                        </td>
+                        <td th:text="${image.name}"></td>
+                        <td><a class="btn btn-primary" th:title="Editar" th:href="@{'/editar?id=' + ${image.id}}"><span class="bi bi-pencil-square"></span></a></td>
+                        <td><a class="btn btn-danger" th:title="Borrar" th:href="@{'/borrar?id=' + ${image.id}}"><span class="bi bi-trash"></span></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <!-- /Contenido -->
+        </main>
+        <div th:replace="fragments/footer.html :: footer(year='2022')"></div>
+    </div>
+</div>
+<div th:replace="fragments/base.html :: jsScripts"></div>
+</body>
+</html>

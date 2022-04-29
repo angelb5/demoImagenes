@@ -1,0 +1,38 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="fragments/base.html :: head(title='Gameshop3 - Bienvenido')"></head>
+<body>
+<div class='container container-app'>
+
+    <div id="content">
+        <main>
+            <!-- Contenido -->
+        <div class="page-header text-center">
+            <h2 th:text="${image.id == 0 ? 'Nueva Imagen' : 'Editar Imagen'}">Nueva Imagen</h2>
+
+        </div>
+        <div class="container-fluid">
+                <form th:action="@{/guardar}"  method="POST" class="row g-3" th:object="${image}"
+                enctype="multipart/form-data">
+                    <input type="hidden" th:field="*{id}">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input th:field="*{name}" type="text" class="form-control" name="name" id="name"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Imagen </label>
+                        <input type="file" class="form-control" name="file" id="file"/>
+                    </div>
+
+                    <div class="form-group">
+                        <a th:href="@{/lista}" class="btn btn-danger">Cancelar</a>
+                        <button type="submit" class="btn btn-primary" th:text="${image.id == 0 ? 'Registrar' : 'Actualizar'}">Reg/act</button>
+                    </div>
+                </form>
+        </div>
+        </main>
+    </div>
+
+</div>
+<div th:replace="fragments/base.html :: jsScripts"></div>
+</body>
+</html>
